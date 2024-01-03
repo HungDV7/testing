@@ -2,6 +2,7 @@ package com.example.testing;
 
 
 import io.javalin.Javalin;
+import io.javalin.http.staticfiles.Location;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jetty.server.Server;
 
@@ -14,12 +15,15 @@ public class HelloApplication {
 
     public static void main(String[] args) {
 
+        int port = Integer.parseInt(System.getProperty("server.port", "8080"));
+        String staticDir = System.getProperty("static.dir", "src/main/resources/static");
+
         // todo 2
         Javalin app = Javalin.create(
+
                 javalinConfig -> {
-                    javalinConfig.jetty.server(Server::new);
-                    javalinConfig.staticFiles.add("/static");
-                }).start(8080);
+                    javalinConfig.staticFiles.add(staticDir, Location.EXTERNAL);
+                }).start(port);
 
         app.get("/", ctx -> ctx.result("Hell World!!!"));
         System.out.println("Server port: " + app.port());
@@ -34,9 +38,8 @@ public class HelloApplication {
                 String formattedDateTime = currentDateTime.format(formatter);
                 ctx.result("Current time: " + formattedDateTime);
             } else if ("config".equals(question)) {
-                String port = Integer.toString(app.port());
-                String staticDir = app.cfg.staticFiles.getClass().descriptorString();
-                ctx.result("Port: " + port + "\n" + "StaticDir: " + staticDir);
+                String porT = Integer.toString(app.port());
+                ctx.result("Port: " + porT + "\n" + "StaticDir: " + staticDir);
             } else {
                 ctx.status(400).result("Invalid question parameter");
             }
@@ -46,13 +49,12 @@ public class HelloApplication {
         app.post("/api/savetext/{pt}", ctx -> {
             String filename = ctx.pathParam("pt");
             String text = ctx.body();
-            String staticDirPath = "src/main/resources/static";
             try {
-                File file = new File(staticDirPath, filename);
+                File file = new File(staticDir, filename);
                 FileUtils.writeStringToFile(file, text, "UTF-8");
                 ctx.result("Save success: " + filename);
             } catch (IOException e) {
-                ctx.status(500).result("Error saving text to file");
+                ctx.status(500).result("Error save");
             }
         });
     }
