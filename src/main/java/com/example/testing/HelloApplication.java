@@ -2,14 +2,16 @@ package com.example.testing;
 
 
 import io.javalin.Javalin;
+import io.javalin.http.UploadedFile;
 import io.javalin.http.staticfiles.Location;
 import org.apache.commons.io.FileUtils;
-import org.eclipse.jetty.server.Server;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class HelloApplication {
 
@@ -55,6 +57,21 @@ public class HelloApplication {
                 ctx.result("Save success: " + filename);
             } catch (IOException e) {
                 ctx.status(500).result("Error save");
+            }
+        });
+
+
+        //todo 5
+        app.post("/api/savefile/{pt}", ctx -> {
+            List<UploadedFile> uploadedFiles = ctx.uploadedFiles("pt");
+            for (UploadedFile uploadedFile : uploadedFiles) {
+                try (InputStream inputStream = uploadedFile.content()) {
+                    File localFile = new File(staticDir, uploadedFile.filename());
+                    FileUtils.copyInputStreamToFile(inputStream, localFile);
+                    ctx.result("Save success");
+                } catch (IOException e) {
+                    ctx.status(500).result("Error save");
+                }
             }
         });
     }
