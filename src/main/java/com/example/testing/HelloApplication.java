@@ -56,23 +56,44 @@ public class HelloApplication {
                 FileUtils.writeStringToFile(file, text, "UTF-8");
                 ctx.result("Save success: " + filename);
             } catch (IOException e) {
-                ctx.status(500).result("Error save");
+                ctx.status(500).result("Save error!!!");
             }
         });
 
-
-        //todo 5
+        // todo 5
         app.post("/api/savefile/{pt}", ctx -> {
-            List<UploadedFile> uploadedFiles = ctx.uploadedFiles("pt");
-            for (UploadedFile uploadedFile : uploadedFiles) {
-                try (InputStream inputStream = uploadedFile.content()) {
-                    File localFile = new File(staticDir, uploadedFile.filename());
-                    FileUtils.copyInputStreamToFile(inputStream, localFile);
-                    ctx.result("Save success");
-                } catch (IOException e) {
-                    ctx.status(500).result("Error save");
+            String dynamicDirectoryName = ctx.pathParam("pt");
+            List<UploadedFile> uploadedFiles = ctx.uploadedFiles("files");
+            try {
+                // add new folder
+                String targetDirectoryPath = staticDir + File.separator + dynamicDirectoryName;
+                File targetDirectory = new File(targetDirectoryPath);
+
+                if (!targetDirectory.exists()) {
+                    targetDirectory.mkdirs();
                 }
+
+                System.out.println("Target Directory: " + targetDirectory);
+
+                if(uploadedFiles.get(0).filename() == null){
+                    ctx.status(500).result("Save error!!!");
+                }
+
+                for (UploadedFile uploadedFile : uploadedFiles) {
+                    try (InputStream inputStream = uploadedFile.content()) {
+                        String targetFilePath = targetDirectoryPath + File.separator + uploadedFile.filename();
+                        File targetFile = new File(targetFilePath);
+                        FileUtils.copyInputStreamToFile(inputStream, targetFile);
+                        ctx.result("Save success: " + targetFile);
+                        System.out.println("File saved: " + targetFilePath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         });
+
     }
 }

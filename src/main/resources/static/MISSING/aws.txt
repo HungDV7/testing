@@ -1,0 +1,11 @@
+ap-southeast-1_dn84aZgKR
+arn:aws:cognito-idp:ap-southeast-1:516211560494:userpool/ap-southeast-1_dn84aZgKR
+
+apiURL='https://kwhxxv4lwd.execute-api.ap-southeast-1.amazonaws.com/Prod'
+
+CognitoPoolId='ap-southeast-1_dn84aZgKR'
+
+
+AppClientId='3jkavprletjvhnbb0lruvhh4b4'
+
+voucher disscount 50% AWV17299918F
