@@ -1,4 +1,4 @@
-package com.example.testing;
+package com.example.testing.step1;
 
 
 import io.javalin.Javalin;
@@ -6,9 +6,7 @@ import io.javalin.http.UploadedFile;
 import io.javalin.http.staticfiles.Location;
 import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -47,25 +45,14 @@ public class HelloApplication {
             }
         });
 
-        // todo 4
-        app.post("/api/savetext/{pt}", ctx -> {
-            String filename = ctx.pathParam("pt");
-            String text = ctx.body();
-            try {
-                File file = new File(staticDir, filename);
-                FileUtils.writeStringToFile(file, text, "UTF-8");
-                ctx.result("Save success: " + filename);
-            } catch (IOException e) {
-                ctx.status(500).result("Save error!!!");
-            }
-        });
 
-        // todo 5
+        // todo 4-5
+
         app.post("/api/savefile/{pt}", ctx -> {
             String dynamicDirectoryName = ctx.pathParam("pt");
             List<UploadedFile> uploadedFiles = ctx.uploadedFiles("files");
+
             try {
-                // add new folder
                 String targetDirectoryPath = staticDir + File.separator + dynamicDirectoryName;
                 File targetDirectory = new File(targetDirectoryPath);
 
@@ -75,25 +62,35 @@ public class HelloApplication {
 
                 System.out.println("Target Directory: " + targetDirectory);
 
-                if(uploadedFiles.get(0).filename() == null){
-                    ctx.status(500).result("Save error!!!");
-                }
+                if (uploadedFiles != null && !uploadedFiles.isEmpty()) {
+                    for (UploadedFile uploadedFile : uploadedFiles) {
+                        try (InputStream inputStream = uploadedFile.content()) {
+                            String targetFilePath = targetDirectoryPath + File.separator +  uploadedFile.filename();
+                            File targetFile = new File(targetFilePath);
+                            FileUtils.copyInputStreamToFile(inputStream, targetFile);
 
-                for (UploadedFile uploadedFile : uploadedFiles) {
-                    try (InputStream inputStream = uploadedFile.content()) {
-                        String targetFilePath = targetDirectoryPath + File.separator + uploadedFile.filename();
-                        File targetFile = new File(targetFilePath);
-                        FileUtils.copyInputStreamToFile(inputStream, targetFile);
-                        ctx.result("Save success: " + targetFile);
-                        System.out.println("File saved: " + targetFilePath);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                            ctx.result("Save success: " + targetFile);
+                            System.out.println("File saved: " + targetFilePath);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            ctx.status(500).result("Save error for files");
+                        }
                     }
+                } else {
+                    String text = ctx.body();
+                    String targetFilePath = targetDirectoryPath + File.separator + System.currentTimeMillis() + "_text.txt";
+                    File targetFile = new File(targetFilePath);
+                    FileUtils.writeStringToFile(targetFile, text, "UTF-8");
+
+                    ctx.result("Save success: " + targetFile);
+                    System.out.println("File saved: " + targetFilePath);
                 }
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
+                ctx.status(500).result("Save error");
             }
         });
+
 
     }
 }

@@ -1,6 +1,4 @@
-package com.example.testing;
-
-
+package com.example.testing.step1;
 
 public class Team {
     private int id;
