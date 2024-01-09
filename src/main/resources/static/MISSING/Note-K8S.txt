@@ -1,0 +1,13 @@
+Lỗi không thể cập nhật ứng dụng mà không gây ra thời gian chết (downtime):
+
+Sử dụng chiến lược Rolling Update trong Kubernetes để cập nhật ứng dụng một cách tương phản và tránh thời gian chết.
+Kiểm tra các thiết lập liveness và readiness probe để đảm bảo các Pod mới được triển khai chỉ nhận yêu cầu khi đã sẵn sàng phục vụ.
+Sử dụng các công cụ và kỹ thuật canary deployment để thực hiện cập nhật một phần và kiểm tra các phiên bản mới trước khi triển khai toàn bộ.
+
+
+
+https://blog.vietnamlab.vn/kubernetes-best-pratice-zero-downtime-rolling-update/
+
+https://blog.vietnamlab.vn/kubernetes-best-practice-p2-application-process-management-with-poststart-and-prestop-hook/
+
+https://blog.vietnamlab.vn/kubernestes-best-paractice-p1/

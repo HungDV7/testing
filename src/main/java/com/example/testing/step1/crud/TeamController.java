@@ -1,48 +1,11 @@
-package com.example.testing.step1;
+package com.example.testing.step1.crud;
 
-import java.util.ArrayList;
-import java.util.List;
+public class TeamController {
+    private final TeamService teamService;
 
-public class TeamServiceImpl implements TeamService {
-    private final TeamRepository teamRepository;
-    private List<Team> listTeam;
-
-
-
-    public TeamServiceImpl(TeamRepository teamRepository) {
-        this.teamRepository = teamRepository;
-        this.listTeam = new ArrayList<>();
+    public TeamController(TeamService teamService) {
+        this.teamService = teamService;
     }
-
-
-    @Override
-    public List<Team> getAll() {
-        return teamRepository.getAll();
-    }
-
-    @Override
-    public Team findById(int id) {
-        if(teamRepository.findById(id) == null){
-            return null;
-        }
-        return teamRepository.findById(id);
-    }
-
-    @Override
-    public void create(Team t) {
-        teamRepository.create(t);
-    }
-
-    @Override
-    public void edit(Team t, int id) {
-        teamRepository.edit(t, id);
-    }
-
-    @Override
-    public void delete(int id) {
-        teamRepository.delete(id);
-    }
-
 
     // todo CRUD Javalin
 //    TeamRepository teamRepository = new TeamRepository();
@@ -77,4 +40,6 @@ public class TeamServiceImpl implements TeamService {
 //        teamService.delete(Integer.valueOf(id));
 //        ctx.status(204);
 //    });
+
+
 }

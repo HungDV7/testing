@@ -1,9 +1,12 @@
-package com.example.testing.step1;
+package com.example.testing.step1.crud;
+
+import com.example.testing.step1.crud.Team;
+import com.example.testing.step1.crud.TeamInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeamRepository implements TeamInterface{
+public class TeamRepository implements TeamInterface {
 
     private final List<Team> listTeam ;
 

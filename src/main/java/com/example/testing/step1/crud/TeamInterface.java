@@ -1,11 +1,10 @@
-package com.example.testing.step1;
+package com.example.testing.step1.crud;
 
-import com.example.testing.step1.Team;
+import com.example.testing.step1.crud.Team;
 
 import java.util.List;
 
-public interface TeamService {
-
+public interface TeamInterface {
     List<Team> getAll();
 
     Team findById(int id);
