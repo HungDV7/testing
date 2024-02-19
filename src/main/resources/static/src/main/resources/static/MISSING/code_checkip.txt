@@ -1,0 +1,24 @@
+    private static boolean checkUniqueIPs(String ipList) {
+        Set<String> uniqueIPs = new HashSet<>();
+        Pattern pattern = Pattern.compile("\"([^\"]+)\"");
+        Matcher matcher = pattern.matcher(ipList);
+
+        while (matcher.find()) {
+            String _ip = matcher.group(1);
+
+            // Kiểm tra tính duy nhất của địa chỉ IP
+            if (!uniqueIPs.add(_ip)) {
+                return false; // Địa chỉ IP đã tồn tại, không duy nhất
+            }
+        }
+
+        return true; // Tất cả địa chỉ IP là duy nhất và hợp lệ
+    }
+
+
+        String ipList = iPRoutingDTO.getIp();
+
+        if (!checkUniqueIPs(ipList)) {
+            throw new BadRequestAlertException("Duplicate IP in the list", ENTITY_NAME, "ipduplicates");
+        }
+

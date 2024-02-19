@@ -1,0 +1,70 @@
+import React, { useState } from 'react';
+
+const CustomInput = ({ label, name, placeholder, value, onChange }) => (
+  <div className="form-inline m-b-24">
+    <label>
+      {label}<span className="required">*</span>
+    </label>
+    <div className="form-text">
+      <input
+        type="text"
+        name={name}
+        placeholder={placeholder}
+        autoComplete="off"
+        className="form-control"
+        value={value}
+        onChange={onChange}
+      />
+    </div>
+  </div>
+);
+
+const MyForm = ({ inputs }) => {
+  // Dùng một đối tượng state để lưu trữ giá trị của các ô input
+  const [inputValues, setInputValues] = useState({});
+
+  // Hàm xử lý khi giá trị thay đổi
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setInputValues({ ...inputValues, [name]: value });
+  };
+
+  // Render các ô input dựa trên danh sách inputs
+  const renderedInputs = inputs.map((input, index) => (
+    <CustomInput
+      key={index}
+      label={input.label}
+      name={input.name}
+      placeholder={input.placeholder}
+      value={inputValues[input.name] || ''}
+      onChange={handleInputChange}
+    />
+  ));
+
+  return (
+    <form id="my-form" action="#" method="post">
+      {renderedInputs}
+    </form>
+  );
+};
+
+const App = () => {
+  // Danh sách các ô input cần hiển thị
+  const form1Inputs = [
+    { label: 'First Name', name: 'firstname', placeholder: 'Enter first name' },
+    { label: 'Last Name', name: 'lastname', placeholder: 'Enter last name' },
+  ];
+
+  const form2Inputs = [
+    { label: 'Email', name: 'email', placeholder: 'Enter email' },
+  ];
+
+  return (
+    <div>
+      <MyForm inputs={form1Inputs} />
+      <MyForm inputs={form2Inputs} />
+    </div>
+  );
+};
+
+export default App;

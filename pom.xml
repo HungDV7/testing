@@ -58,6 +58,12 @@
             <version>8.5.6</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-core</artifactId>
+            <version>1.27</version>
+        </dependency>
+
     </dependencies>
 
     <build>
