@@ -5,33 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eeb433e0-755e-4791-8243-84365cc1ae35" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/FileReadEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/FileService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/FileUploadEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/src/main/resources/static/MISSING/Code_InputReactJs.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/src/main/resources/static/MISSING/TrickLearnEnglish.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/src/main/resources/static/MISSING/code_checkip.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/src/main/resources/static/MISSING/credentials.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/src/main/resources/static/MISSING/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/src/main/resources/static/MISSING/toast.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/EventProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/EventProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/yuhT/FileStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/yuhT/FileUploadExecutor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/yuhT/LocalFileStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/yuhT/S3FileStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/428383003_333672559639983_3817982188076227004_n.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/Chay file jar.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/EventQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/EventQueue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/FileSaveEvent.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/file/FileStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/file/FileStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/minio/MinioStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/minio/MinioStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/minio/StorageAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/testing/step1/minio/StorageAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/MISSING/1704771183828_text.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/MISSING/1704771183828_text.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/src/main/resources/static/MISSING/Code_InputReactJs.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/src/main/resources/static/MISSING/TrickLearnEnglish.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/src/main/resources/static/MISSING/code_checkip.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/src/main/resources/static/MISSING/credentials.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/src/main/resources/static/MISSING/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/src/main/resources/static/MISSING/toast.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/testne/1704429888533_text.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -53,12 +54,16 @@
     </option>
   </component>
   <component name="ProjectId" id="2cZq6NH1GwwqViO1ci6fkxMaRZY" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
@@ -67,6 +72,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -98,11 +104,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1708329271938</updated>
-      <workItem from="1708329273147" duration="1019000" />
+      <workItem from="1708329273147" duration="5199000" />
+      <workItem from="1709176932924" duration="6656000" />
+      <workItem from="1709607084273" duration="8289000" />
+      <workItem from="1709865180744" duration="9717000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

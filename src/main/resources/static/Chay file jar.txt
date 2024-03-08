@@ -1,0 +1,2 @@
+java -Dserver.port=8082 -Dstatic.dir=D:/Capta1n-H/codeUI -jar target/testing.jar
+mvn clean package

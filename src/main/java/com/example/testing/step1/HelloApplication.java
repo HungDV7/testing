@@ -4,6 +4,9 @@ package com.example.testing.step1;
 import com.example.testing.step1.file.FileStorage;
 import com.example.testing.step1.minio.MinioStorage;
 import com.example.testing.step1.minio.StorageAdapter;
+import com.example.testing.step1.yuhT.FileUploadExecutor;
+import com.example.testing.step1.yuhT.LocalFileStorage;
+import com.example.testing.step1.yuhT.S3FileStorage;
 import io.javalin.Javalin;
 import io.javalin.http.UploadedFile;
 import io.javalin.http.staticfiles.Location;
@@ -14,16 +17,28 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
+
+import static com.example.testing.step1.yuhT.FileUploadExecutor.CORE_POOL_SIZE;
 
 public class HelloApplication {
 
 
     public static final String staticDir = System.getProperty("static.dir", "src/main/resources/static");
 
+    private static final com.example.testing.step1.yuhT.FileStorage localFileStorage = new LocalFileStorage();
+    private static final com.example.testing.step1.yuhT.FileStorage s3FileStorage = new S3FileStorage();
+
+    private static final  com.example.testing.step1.yuhT.FileUploadExecutor executer = new FileUploadExecutor();
     public static void main(String[] args) {
 
         EventQueue eventQueue = new EventQueue();
+
+        Executor executor = Executors.newFixedThreadPool(CORE_POOL_SIZE);
+
 
         int port = Integer.parseInt(System.getProperty("server.port", "8080"));
 
@@ -136,7 +151,7 @@ public class HelloApplication {
                 String fileContent = FileUtils.readFileToString(file, "UTF-8");
                 FileReadEvent fileReadEvent = new FileReadEvent(file);
                 eventQueue.addEvent(fileReadEvent);
-                ctx.result("Content of file " + filename + ":\n" + fileContent );
+                ctx.result("Content of file " + filename + ":\n" + fileContent);
             } else {
                 ctx.status(404).result("File not found: " + filename);
             }
@@ -169,6 +184,44 @@ public class HelloApplication {
                 ctx.status(500).result("Error retrieving file list.");
             }
         });
+
+
+        // todo: Use Retry
+
+        app.post("/api/uploadT", ctx -> {
+            try {
+                UploadedFile uploadedFile = ctx.uploadedFile("file");
+                String fileName = uploadedFile.filename();
+                InputStream fileContent = uploadedFile.content();
+                long fileSize = uploadedFile.size();
+                String contentType = uploadedFile.contentType();
+                String storageOption = Optional.ofNullable(ctx.queryParam("fs")).orElse("file");
+
+                Runnable task = () -> {
+                    try {
+                        if ("s3".equals(storageOption)) {
+                            s3FileStorage.uploadFile(fileName, fileContent, fileSize, contentType);
+                        } else {
+                            localFileStorage.uploadFile(fileName, fileContent, fileSize, contentType);
+                        }
+                        System.out.println("Task completed for file: " + fileName);
+                    } catch (IOException e) {
+                        ctx.status(500).result("Failed to upload file");
+                    }
+                };
+
+                System.out.println("Task added to the queue for file: " + fileName);
+                executor.execute(task);
+
+                ctx.result("File uploaded successfully");
+            } catch (Exception e) {
+                System.err.println("Bad Request: " + e.getMessage());
+                ctx.status(400).result("Bad Request");
+            }
+        });
+
+
+
 
 
     }
